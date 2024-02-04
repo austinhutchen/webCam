@@ -7,13 +7,18 @@
   padding: 20px;
   background-color: #f2f2f2; /* Light gray background */
 
-  video {
+  video, .snapshot-image {
     width: 100%;
     max-width: 600px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #ddd; /* Lighter border color */
+    border-radius: 8px; /* Rounded corners */
     background-color: #fff; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+  }
+
+  video {
+    margin-bottom: 0; /* Adjust margin for video element */
   }
 
   canvas {
@@ -26,13 +31,14 @@
     margin-bottom: 20px;
 
     button {
-      padding: 10px;
+      padding: 12px;
       font-size: 16px;
       cursor: pointer;
       background-color: #4caf50;
       color: #fff;
       border: none;
-      border-radius: 5px;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
 
       &:hover {
         background-color: #45a049;
@@ -41,27 +47,35 @@
   }
 
   .snapshot-image {
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff; /* White background */
+    margin-bottom: 20px; /* Maintain consistent margin with video and snapshot */
   }
 
-  .video-gallery {
+  .review-section {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 
-    .video-item {
-      width: 100%;
-      max-width: 300px;
-      video {
+    h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .video-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+
+      .video-item {
         width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #fff; /* White background */
+        max-width: 300px;
+        video {
+          width: 100%;
+          border: 1px solid #ddd; /* Lighter border color */
+          border-radius: 8px;
+          background-color: #fff; /* White background */
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+        }
       }
     }
   }
