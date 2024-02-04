@@ -2,8 +2,8 @@
   <h1>Webcam Video Recording</h1>
 
   <div>
-    <video #video [height]="480" [width]="640" autoplay></video>
-    <canvas #canvas [height]="480" [width]="640"></canvas>
+    <video #video [height]="300" [width]="auto" autoplay></video>
+    <canvas #canvas [height]="300" [width]="auto"></canvas>
     <br>
     <button class="actionBtn" (click)="capture()">Take A Snapshot</button>
     <button class="actionBtn" (click)="startRecording()">Start Recording</button>

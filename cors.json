@@ -1,0 +1,7 @@
+[
+  {
+    "origin": ["https://example.com"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]

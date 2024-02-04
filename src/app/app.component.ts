@@ -1,7 +1,6 @@
-// app.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { WebcamImage } from 'ngx-webcam';
+import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 
@@ -11,15 +10,14 @@ import { AngularFireDatabase } from '@angular/fire/compat/database';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public webcamImage: WebcamImage | null = null;
-  private trigger: Subject<void> = new Subject<void>();
-  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
-  public videoOptions: MediaTrackConstraints = {
-    width: {ideal: 1024},
-    height: {ideal: 576}
-  };
+  @ViewChild('video') video: ElementRef<HTMLVideoElement>;
+  @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
+
   public captures: Array<any> = [];
   private userId: string = 'user-uid'; // Replace with actual UID after authentication
+
+  private mediaRecorder: MediaRecorder;
+  private chunks: Blob[] = [];
 
   constructor(
     private storage: AngularFireStorage,
@@ -27,27 +25,43 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Additional setup if needed
+    this.setupMediaRecorder();
   }
 
   public triggerSnapshot(): void {
-    this.trigger.next();
+    // Capture logic here if needed
   }
 
-  public handleImageCapture(webcamImage: WebcamImage): void {
-    this.webcamImage = webcamImage;
+  public startRecording(): void {
+    this.chunks = [];
+    this.mediaRecorder.start();
   }
 
-  public cameraWasSwitched(deviceId: string): void {
-    // Handle camera switch if needed
+  public stopRecording(): void {
+    this.mediaRecorder.stop();
   }
 
-  public showNextWebcam(directionOrDeviceId: boolean|string): void {
-    this.nextWebcam.next(directionOrDeviceId);
+  private setupMediaRecorder(): void {
+    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+      this.mediaRecorder = new MediaRecorder(stream);
+      this.mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          this.chunks.push(event.data);
+        }
+      };
+
+      this.mediaRecorder.onstop = () => {
+        const videoBlob = new Blob(this.chunks, { type: 'video/webm' });
+        const videoDataURL = URL.createObjectURL(videoBlob);
+        this.captures.push(videoDataURL);
+        this.uploadToFirebase(videoBlob);
+      };
+    }).catch((error: WebcamInitError) => {
+      console.error('Error initializing webcam:', error);
+    });
   }
 
-  public uploadToFirebase(videoDataURL: string): void {
-    const videoBlob = this.dataURItoBlob(videoDataURL);
+  public uploadToFirebase(videoBlob: Blob): void {
     const filePath = `webcam-videos/${this.userId}/${new Date().getTime()}.webm`;
     const ref = this.storage.ref(filePath);
 
@@ -56,19 +70,6 @@ export class AppComponent implements OnInit {
         this.database.list(`users/${this.userId}/videos`).push({ downloadUrl });
       });
     });
-  }
-
-  private dataURItoBlob(dataURI: string): Blob {
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    const arrayBuffer = new ArrayBuffer(byteString.length);
-    const intArray = new Uint8Array(arrayBuffer);
-
-    for (let i = 0; i < byteString.length; i++) {
-      intArray[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([arrayBuffer], { type: mimeString });
   }
 }
 
