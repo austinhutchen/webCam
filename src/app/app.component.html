@@ -6,17 +6,19 @@
 
   <!-- Canvas for snapshot -->
   <canvas #canvas hidden></canvas>
-  <p>AUTHORIZED?: {{ isUserAuthenticated | json }}</p>
+  <h2>AUTHORIZED?: {{ isUserAuthenticated | json }}</h2>
 
   <!-- Action buttons -->
   <div class="action-buttons">
     <button (click)="startRecording()">Start Recording</button>
     <button (click)="stopRecording()" [disabled]="!isUserAuthenticated">Stop Recording</button>
     <button (click)="triggerSnapshot()">Refresh</button>
-    <div class="snapshot" *ngIf="webcamImage">
-    <img [src]="webcamImage.imageAsDataUrl" />
-  </div>
+    <hr/>
 
+
+  </div>
+ <div class="snapshot" *ngIf="webcamImage">
+    <img [src]="webcamImage.imageAsDataUrl" />
   </div>
   <img [src]="snapshotDataURL" alt="Snapshot" *ngIf="snapshotDataURL" class="snapshot-image">
 
