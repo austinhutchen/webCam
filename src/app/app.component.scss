@@ -4,15 +4,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 5vh;
-  background-color: #f2f2f2; /* Light gray background */
+  padding: 5vh; /* Adjusted padding using vh units */
+  background-color: #f4f4f4; /* Light gray background */
 
   video {
     width: 100%;
-    max-width: 60vh;
-    margin-bottom: 5vh;
-    border: 1px solid #ccc;
-    border-radius: 2vh;
+    max-width: 60vh; /* Adjusted max-width using vh units */
+    margin-bottom: 5vh; /* Adjusted margin using vh units */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px;
     background-color: #fff; /* White background */
   }
 
@@ -22,62 +22,69 @@
 
   .action-buttons {
     display: flex;
-    gap: 2vh;
-    margin-bottom: 5vh;
+    gap: 2vh; /* Adjusted gap using vh units */
+    margin-bottom: 5vh; /* Adjusted margin using vh units */
 
     button {
-      padding: 2vh;
-      font-size: 2vh;
+      padding: 3vh 5vh; /* Adjusted padding using vh units */
+      font-size: 1.6vh; /* Adjusted font-size using vh units */
       cursor: pointer;
-      background-color: #4caf50;
-      color: #fff;
       border: none;
-      border-radius: 2vh;
+
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+
+      &.start {
+        background-color: "red"; /* Green */
+        color: #fff;
+        font-weight: bold; /* Added bold style */
+        font-style: italic; /* Added italic style */
+      }
+
+      &.stop {
+        background-color: "green";
+        color: #fff;
+        font-weight: bold; /* Added bold style */
+        font-style: italic; /* Added italic style */
+      }
+
+      &.snapshot {
+        background-color: "blue"; /* Blue */
+        color: #fff;
+        font-weight: bold; /* Added bold style */
+        font-style: italic; /* Added italic style */
+      }
 
       &:hover {
-        background-color: #45a049;
+        filter: brightness(1.8);
       }
     }
   }
 
   .snapshot-image {
     width: 100%;
-    max-width: 60vh;
-    margin-bottom: 5vh;
-    border: 1px solid #ccc;
-    border-radius: 2vh;
+    max-width: 60vh; /* Adjusted max-width using vh units */
+    margin-bottom: 5vh; /* Adjusted margin using vh units */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 8px;
     background-color: #fff; /* White background */
   }
 
   .video-gallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 2vh;
+    gap: 2vh; /* Adjusted gap using vh units */
 
     .video-item {
       width: 100%;
-      max-width: 30vh;
+      max-width: 30vh; /* Adjusted max-width using vh units */
+
       video {
         width: 100%;
-        border: 1px solid #ccc;
-        border-radius: 2vh;
+        border: 1px solid #ddd; /* Light gray border */
+        border-radius: 8px;
         background-color: #fff; /* White background */
       }
-    }
-  }
-}
-
-/* Additional Styling for Camera Component */
-app-camera {
-  margin-top: 5vh;
-  width: 100%;
-
-  .snapshot {
-    img {
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 2vh;
-      background-color: #fff; /* White background */
     }
   }
 }
