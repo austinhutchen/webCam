@@ -4,21 +4,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 5vh;
   background-color: #f2f2f2; /* Light gray background */
 
-  video, .snapshot-image {
-    width: 100%;
-    max-width: 600px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd; /* Lighter border color */
-    border-radius: 8px; /* Rounded corners */
-    background-color: #fff; /* White background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
-  }
-
   video {
-    margin-bottom: 0; /* Adjust margin for video element */
+    width: 100%;
+    max-width: 60vh;
+    margin-bottom: 5vh;
+    border: 1px solid #ccc;
+    border-radius: 2vh;
+    background-color: #fff; /* White background */
   }
 
   canvas {
@@ -27,18 +22,17 @@
 
   .action-buttons {
     display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 2vh;
+    margin-bottom: 5vh;
 
     button {
-      padding: 12px;
-      font-size: 16px;
+      padding: 2vh;
+      font-size: 2vh;
       cursor: pointer;
       background-color: #4caf50;
       color: #fff;
       border: none;
-      border-radius: 8px;
-      transition: background-color 0.3s ease;
+      border-radius: 2vh;
 
       &:hover {
         background-color: #45a049;
@@ -47,36 +41,43 @@
   }
 
   .snapshot-image {
-    margin-bottom: 20px; /* Maintain consistent margin with video and snapshot */
+    width: 100%;
+    max-width: 60vh;
+    margin-bottom: 5vh;
+    border: 1px solid #ccc;
+    border-radius: 2vh;
+    background-color: #fff; /* White background */
   }
 
-  .review-section {
+  .video-gallery {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 2vh;
 
-    h2 {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .video-gallery {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-
-      .video-item {
+    .video-item {
+      width: 100%;
+      max-width: 30vh;
+      video {
         width: 100%;
-        max-width: 300px;
-        video {
-          width: 100%;
-          border: 1px solid #ddd; /* Lighter border color */
-          border-radius: 8px;
-          background-color: #fff; /* White background */
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
-        }
+        border: 1px solid #ccc;
+        border-radius: 2vh;
+        background-color: #fff; /* White background */
       }
+    }
+  }
+}
+
+/* Additional Styling for Camera Component */
+app-camera {
+  margin-top: 5vh;
+  width: 100%;
+
+  .snapshot {
+    img {
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 2vh;
+      background-color: #fff; /* White background */
     }
   }
 }
