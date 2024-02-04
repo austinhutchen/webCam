@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { WebcamImage, WebcamInitError } from 'ngx-webcam';
+import { WebcamInitError } from 'ngx-webcam';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 
 @Component({
   selector: 'app-root',
@@ -14,11 +13,8 @@ export class AppComponent implements OnInit {
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
 
-  private userId: string ; // Replace with actual UID after authentication
+  private userId: string;
   public captures: Array<any> = [];
-
-
-
 
   private mediaRecorder: MediaRecorder;
   private chunks: Blob[] = [];
@@ -26,19 +22,34 @@ export class AppComponent implements OnInit {
   constructor(
     private storage: AngularFireStorage,
     private database: AngularFireDatabase
-  ) {
-const  auth = getAuth();
- const user = auth.currentUser;
-if(user && user.uid){
-this.userId = user.uid;
-}
-else{
-this.userId = 'uid';
-}
-  }
+  ) { }
 
   ngOnInit(): void {
     this.setupMediaRecorder();
+    this.listenForAuthStateChanges();
+  }
+
+  private listenForAuthStateChanges(): void {
+    const auth = getAuth();
+
+    const authStatePromise = new Promise<User | null>((resolve, reject) => {
+      onAuthStateChanged(auth, (user) => {
+        resolve(user);
+      }, (error) => {
+        reject(error);
+      });
+    });
+
+    authStatePromise.then((user) => {
+      if (user) {
+        this.userId = user.uid;
+      } else {
+        // User is signed out
+        this.userId = null;
+      }
+    }).catch((error) => {
+      console.error('Error getting auth state:', error);
+    });
   }
 
   public triggerSnapshot(): void {
@@ -74,7 +85,12 @@ this.userId = 'uid';
     });
   }
 
-  public uploadToFirebase(videoBlob: Blob): void {
+  private uploadToFirebase(videoBlob: Blob): void {
+    if (!this.userId) {
+      console.error('User ID is null. Upload aborted.');
+      return;
+    }
+
     const filePath = `webcam-videos/${this.userId}/${new Date().getTime()}.webm`;
     const ref = this.storage.ref(filePath);
 
@@ -82,6 +98,8 @@ this.userId = 'uid';
       ref.getDownloadURL().subscribe((downloadUrl) => {
         this.database.list(`users/${this.userId}/videos`).push({ downloadUrl });
       });
+    }).catch((error) => {
+      console.error('Error uploading to Firebase:', error);
     });
   }
 }
