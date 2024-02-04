@@ -5,10 +5,10 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2020",
+    "module": "esnext",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "ES2022",
+    "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -16,7 +16,7 @@
       "es2020",
       "dom"
     ],
-    "paths": {
+   "paths": {
       "core-js/es7/reflect": [
         "node_modules/core-js/proposals/reflect-metadata"
       ],
