@@ -3,6 +3,7 @@ import { WebcamInitError } from 'ngx-webcam';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +13,20 @@ import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 export class AppComponent implements OnInit {
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
+  @ViewChild('snapshotImage') snapshotImage: ElementRef<HTMLImageElement>; // Add this line
 
   private userId: string;
   public captures: Array<any> = [];
+  public isUserAuthenticated: boolean = false;
+  public snapshotDataURL: string = ''; // Add this line
 
   private mediaRecorder: MediaRecorder;
   private chunks: Blob[] = [];
 
   constructor(
     private storage: AngularFireStorage,
-    private database: AngularFireDatabase
+    private database: AngularFireDatabase,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -32,36 +37,61 @@ export class AppComponent implements OnInit {
   private listenForAuthStateChanges(): void {
     const auth = getAuth();
 
-    const authStatePromise = new Promise<User | null>((resolve, reject) => {
-      onAuthStateChanged(auth, (user) => {
-        resolve(user);
-      }, (error) => {
-        reject(error);
-      });
-    });
-
-    authStatePromise.then((user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
+        console.log('User authenticated:', user);
         this.userId = user.uid;
+        this.isUserAuthenticated = true;
       } else {
-        // User is signed out
+        console.log('User is signed out.');
         this.userId = null;
+        this.isUserAuthenticated = false;
       }
-    }).catch((error) => {
-      console.error('Error getting auth state:', error);
+    }, (error) => {
+      console.error('Error during auth state change:', error);
     });
   }
 
   public triggerSnapshot(): void {
-    // Capture logic here if needed
+    if (!this.mediaRecorder) {
+      console.error('MediaRecorder is not initialized.');
+      return;
+    }
+
+    this.video.nativeElement.pause();
+
+    const context = this.canvas.nativeElement.getContext('2d');
+    context.drawImage(this.video.nativeElement, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+
+    // Set the snapshotDataURL property
+    this.snapshotDataURL = this.canvas.nativeElement.toDataURL('image/png');
+
+    // Clear the canvas
+    context.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+
+    this.video.nativeElement.play();
   }
 
-  public startRecording(): void {
-    this.chunks = [];
-    this.mediaRecorder.start();
+ public startRecording(): void {
+  if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+    console.error('MediaRecorder is already recording.');
+    return;
   }
+
+  this.chunks = [];
+  this.mediaRecorder.start();
+}
 
   public stopRecording(): void {
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    if (!user) {
+      console.error('User is not authenticated. Recording cannot be stopped.');
+      return;
+    }
+  this.video.nativeElement.pause();
+
     this.mediaRecorder.stop();
   }
 
@@ -76,9 +106,11 @@ export class AppComponent implements OnInit {
 
       this.mediaRecorder.onstop = () => {
         const videoBlob = new Blob(this.chunks, { type: 'video/webm' });
-        const videoDataURL = URL.createObjectURL(videoBlob);
-        this.captures.push(videoDataURL);
-        this.uploadToFirebase(videoBlob);
+        const videoObjectUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
+          URL.createObjectURL(videoBlob)
+        );
+
+        this.video.nativeElement.play();
       };
     }).catch((error: WebcamInitError) => {
       console.error('Error initializing webcam:', error);

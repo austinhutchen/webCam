@@ -1,18 +1,25 @@
-<div style="text-align:center">
-  <h1>Webcam Video Recording</h1>
+<!-- app.component.html -->
 
-  <div>
-    <video #video [height]="300" [width]="auto" autoplay></video>
-    <canvas #canvas [height]="300" [width]="auto"></canvas>
-    <br>
-    <button class="actionBtn" (click)="capture()">Take A Snapshot</button>
-    <button class="actionBtn" (click)="startRecording()">Start Recording</button>
-    <button class="actionBtn" (click)="stopRecording()">Stop Recording</button>
+<div class="app-container">
+  <!-- Video stream -->
+  <video #video autoplay playsinline></video>
+
+  <!-- Canvas for snapshot -->
+  <canvas #canvas hidden></canvas>
+
+  <!-- Action buttons -->
+  <div class="action-buttons">
+    <button (click)="startRecording()">Start Recording</button>
+<button (click)="stopRecording()" [disabled]="!isUserAuthenticated">Stop Recording</button>
+    <button (click)="triggerSnapshot()">Take Snapshot</button>
   </div>
+<img [src]="snapshotDataURL" alt="Snapshot">
 
-  <div class="snapshot" *ngIf="captures.length > 0">
-    <h2>Recorded Videos:</h2>
-    <video *ngFor="let capture of captures" [src]="capture" controls></video>
+  <!-- Captured videos gallery -->
+  <div class="video-gallery">
+    <div *ngFor="let capture of captures" class="video-item">
+      <video [src]="capture" controls></video>
+    </div>
   </div>
 </div>
 
