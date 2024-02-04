@@ -9,7 +9,8 @@
 </li>
 <li>
  <h2>After installing all necessary files, we begin on our app's internal structure</h2> . First, <code>cd src</code>  and run <code> vim app.module.ts</code> to modify our default-named app.module.ts, a file to contain the metadata for our root module, configs for module components & pipes, and which serves dependency injection. For example, the bootstrap property is used in the @NgModule decorator within the file to specify the root component that Angular should bootstrap when the application starts. "Bootstrapping" refers to the process of launching and initializing the main component of the application. As such, we will also connect our firebase configuration here using <code> AngularFireModule.initializeApp(config) </code>
-<img width="460" alt="Screenshot 2024-02-02 at 3 42 48 PM" src="https://github.com/austinhutchen/AngularVideoInterface/assets/93489691/786b0d75-31b1-465d-8dfa-7163f53613c6">
+<img width="872" alt="Screenshot 2024-02-04 at 2 32 05 PM" src="https://github.com/austinhutchen/AngularVideoInterface/assets/93489691/091939de-4706-4aa3-a904-0ea90dbbf3c1">
+
 
 </li>
 
