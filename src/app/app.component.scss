@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  background-color: #f2f2f2; /* Light gray background */
 
   video {
     width: 100%;
@@ -12,6 +13,7 @@
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    background-color: #fff; /* White background */
   }
 
   canvas {
@@ -38,6 +40,15 @@
     }
   }
 
+  .snapshot-image {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff; /* White background */
+  }
+
   .video-gallery {
     display: flex;
     flex-wrap: wrap;
@@ -50,6 +61,7 @@
         width: 100%;
         border: 1px solid #ccc;
         border-radius: 5px;
+        background-color: #fff; /* White background */
       }
     }
   }

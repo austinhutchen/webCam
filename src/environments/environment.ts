@@ -14,8 +14,6 @@ export const firebaseConfig = {
   messagingSenderId: "683800012934",
   appId: "1:683800012934:web:66646383dcd40c9b770907",
   measurementId: "G-1VL876XTKN"
-};
-
-// Initialize Firebase
+};// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);

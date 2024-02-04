@@ -1,16 +1,22 @@
+// app.component.ts
+// Import necessary modules and components
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { WebcamInitError } from 'ngx-webcam';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-
+import {WebcamImage} from 'ngx-webcam';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  public webcamImage: WebcamImage = null;
+handleImage(webcamImage: WebcamImage) {
+this.webcamImage = webcamImage;
+}
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
   @ViewChild('snapshotImage') snapshotImage: ElementRef<HTMLImageElement>; // Add this line
@@ -18,10 +24,11 @@ export class AppComponent implements OnInit {
   private userId: string;
   public captures: Array<any> = [];
   public isUserAuthenticated: boolean = false;
-  public snapshotDataURL: string = ''; // Add this line
+  public snapshotDataURL: SafeResourceUrl = ''; // Update to SafeResourceUrl
 
   private mediaRecorder: MediaRecorder;
   private chunks: Blob[] = [];
+  private authStateInitialized: boolean = false;
 
   constructor(
     private storage: AngularFireStorage,
@@ -47,8 +54,11 @@ export class AppComponent implements OnInit {
         this.userId = null;
         this.isUserAuthenticated = false;
       }
+
+      this.authStateInitialized = true; // Authentication state is now initialized
     }, (error) => {
       console.error('Error during auth state change:', error);
+      this.authStateInitialized = true; // Authentication state initialization failed
     });
   }
 
@@ -64,7 +74,9 @@ export class AppComponent implements OnInit {
     context.drawImage(this.video.nativeElement, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
 
     // Set the snapshotDataURL property
-    this.snapshotDataURL = this.canvas.nativeElement.toDataURL('image/png');
+    this.snapshotDataURL = this.sanitizer.bypassSecurityTrustResourceUrl(
+      this.canvas.nativeElement.toDataURL('image/png')
+    );
 
     // Clear the canvas
     context.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
@@ -72,26 +84,28 @@ export class AppComponent implements OnInit {
     this.video.nativeElement.play();
   }
 
- public startRecording(): void {
-  if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
-    console.error('MediaRecorder is already recording.');
-    return;
+  public startRecording(): void {
+    if (this.mediaRecorder && this.mediaRecorder.state === 'recording') {
+      console.error('MediaRecorder is already recording.');
+      return;
+    }
+
+    this.chunks = [];
+    this.mediaRecorder.start();
   }
 
-  this.chunks = [];
-  this.mediaRecorder.start();
-}
-
   public stopRecording(): void {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    if (!this.authStateInitialized) {
+      console.warn('Authentication state is not yet initialized. Recording may still be in progress.');
+      return;
+    }
 
-    if (!user) {
+    if (!this.isUserAuthenticated) {
       console.error('User is not authenticated. Recording cannot be stopped.');
       return;
     }
-  this.video.nativeElement.pause();
 
+    this.video.nativeElement.pause();
     this.mediaRecorder.stop();
   }
 
