@@ -3,6 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { WebcamImage, WebcamInitError } from 'ngx-webcam';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { getAuth } from "firebase/auth";
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,11 @@ export class AppComponent implements OnInit {
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
 
+  private userId: string ; // Replace with actual UID after authentication
   public captures: Array<any> = [];
-  private userId: string = 'user-uid'; // Replace with actual UID after authentication
+
+
+
 
   private mediaRecorder: MediaRecorder;
   private chunks: Blob[] = [];
@@ -22,7 +26,16 @@ export class AppComponent implements OnInit {
   constructor(
     private storage: AngularFireStorage,
     private database: AngularFireDatabase
-  ) { }
+  ) {
+const  auth = getAuth();
+ const user = auth.currentUser;
+if(user && user.uid){
+this.userId = user.uid;
+}
+else{
+this.userId = 'uid';
+}
+  }
 
   ngOnInit(): void {
     this.setupMediaRecorder();

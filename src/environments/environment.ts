@@ -4,17 +4,17 @@
 
 export const environment = {
   production: false,
-  firebaseConfig : {
-    apiKey: "AIzaSyAqXSbuPtWK0yMOC2V_GJXJeW1_udFj8us",
-  authDomain: "webcam-3783e.firebaseapp.com",
-  databaseURL: "https://webcam-3783e-default-rtdb.firebaseio.com",
-  projectId: "webcam-3783e",
-  storageBucket: "webcam-3783e.appspot.com",
-  messagingSenderId: "1005699241270",
-  appId: "1:1005699241270:web:7076a0278db9c888b94f97",
-  measurementId: "G-M0GL35MQDH"
+ firebaseConfig : {
+  apiKey: "AIzaSyD9bILGUFkMuHJHdSU1oQ2D3DPZzVPbymk",
+  authDomain: "angularcam.firebaseapp.com",
+  databaseURL: "https://angularcam-default-rtdb.firebaseio.com",
+  projectId: "angularcam",
+  storageBucket: "angularcam.appspot.com",
+  messagingSenderId: "683800012934",
+  appId: "1:683800012934:web:66646383dcd40c9b770907",
+  measurementId: "G-1VL876XTKN"
+},
 }
-};
 /*
  * In development mode, to ignore zone related error stack frames such as
  * `zone.run`, `zoneDelegate.invokeTask` for easier debugging, you can
