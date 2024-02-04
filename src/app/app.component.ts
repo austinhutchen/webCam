@@ -1,47 +1,74 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+// app.component.ts
+import { Component, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { WebcamImage } from 'ngx-webcam';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  @ViewChild("video", { static: true }) //variable from html
-  public video: ElementRef;
+  public webcamImage: WebcamImage | null = null;
+  private trigger: Subject<void> = new Subject<void>();
+  private nextWebcam: Subject<boolean|string> = new Subject<boolean|string>();
+  public videoOptions: MediaTrackConstraints = {
+    width: {ideal: 1024},
+    height: {ideal: 576}
+  };
+  public captures: Array<any> = [];
+  private userId: string = 'user-uid'; // Replace with actual UID after authentication
 
-  @ViewChild("canvas", { static: true }) //variable from html
-  public canvas: ElementRef;
+  constructor(
+    private storage: AngularFireStorage,
+    private database: AngularFireDatabase
+  ) { }
 
-  public captures: Array<any>;
-
-  public constructor() {
-    this.captures = [];
+  ngOnInit(): void {
+    // Additional setup if needed
   }
 
-  public ngOnInit() {}
+  public triggerSnapshot(): void {
+    this.trigger.next();
+  }
 
-  // “navigator” is an object that contains information and about the user’s browser
-  // Calling “mediaDevices” on the “navigator” object returns info about what media input
-  // devices are connected tot he browser.
-  // view DOM elements. Get user permission first
-  public ngAfterViewInit() {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then((stream) => {
-          this.video.nativeElement.srcObject = stream;
-          this.video.nativeElement.play();
-        })
-        .catch((err) => alert(`Bummer! ${err.name}.`));
+  public handleImageCapture(webcamImage: WebcamImage): void {
+    this.webcamImage = webcamImage;
+  }
+
+  public cameraWasSwitched(deviceId: string): void {
+    // Handle camera switch if needed
+  }
+
+  public showNextWebcam(directionOrDeviceId: boolean|string): void {
+    this.nextWebcam.next(directionOrDeviceId);
+  }
+
+  public uploadToFirebase(videoDataURL: string): void {
+    const videoBlob = this.dataURItoBlob(videoDataURL);
+    const filePath = `webcam-videos/${this.userId}/${new Date().getTime()}.webm`;
+    const ref = this.storage.ref(filePath);
+
+    this.storage.upload(filePath, videoBlob).then(() => {
+      ref.getDownloadURL().subscribe((downloadUrl) => {
+        this.database.list(`users/${this.userId}/videos`).push({ downloadUrl });
+      });
+    });
+  }
+
+  private dataURItoBlob(dataURI: string): Blob {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const intArray = new Uint8Array(arrayBuffer);
+
+    for (let i = 0; i < byteString.length; i++) {
+      intArray[i] = byteString.charCodeAt(i);
     }
-  }
-  //capture an image and add it to the captures array.
-  public capture() {
-    const context = this.canvas.nativeElement
-      .getContext("2d")
-      .drawImage(this.video.nativeElement, 0, 0, 640, 480);
-    this.captures.push(this.canvas.nativeElement.toDataURL("image/png"));
-    console.log("picture taken");
-    console.log("array.length: ", this.captures.length);
+
+    return new Blob([arrayBuffer], { type: mimeString });
   }
 }
+

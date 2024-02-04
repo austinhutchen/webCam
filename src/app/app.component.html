@@ -1,17 +1,18 @@
-<!--video and canvas tags have local variable so they can be accessed by typescript-->
-<div id="app">
-  <div>
-    <video #video id="video" width="640" height="480" autoplay="true"></video>
-  </div>
+<div style="text-align:center">
+  <h1>Webcam Video Recording</h1>
 
   <div>
-    <button id="snap" (click)="capture()">Take Photo</button>
+    <video #video [height]="480" [width]="640" autoplay></video>
+    <canvas #canvas [height]="480" [width]="640"></canvas>
+    <br>
+    <button class="actionBtn" (click)="capture()">Take A Snapshot</button>
+    <button class="actionBtn" (click)="startRecording()">Start Recording</button>
+    <button class="actionBtn" (click)="stopRecording()">Stop Recording</button>
   </div>
 
-  <canvas #canvas id="canvas" width="640" height="480"></canvas>
-  <ul>
-    <li *ngFor="let capture of captures">
-      <img src="{{ capture }}" height="50" />
-    </li>
-  </ul>
+  <div class="snapshot" *ngIf="captures.length > 0">
+    <h2>Recorded Videos:</h2>
+    <video *ngFor="let capture of captures" [src]="capture" controls></video>
+  </div>
 </div>
+
