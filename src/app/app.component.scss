@@ -35,22 +35,19 @@
       transition: background-color 0.3s ease;
 
       &.start {
-        background-color: "red"; /* Green */
-        color: #fff;
+        color: 'green';
         font-weight: bold; /* Added bold style */
         font-style: italic; /* Added italic style */
       }
 
       &.stop {
-        background-color: "green";
-        color: #fff;
+        color:'red';
         font-weight: bold; /* Added bold style */
         font-style: italic; /* Added italic style */
       }
 
       &.snapshot {
-        background-color: "blue"; /* Blue */
-        color: #fff;
+        color: 'blue';
         font-weight: bold; /* Added bold style */
         font-style: italic; /* Added italic style */
       }
