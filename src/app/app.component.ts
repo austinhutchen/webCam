@@ -1,12 +1,12 @@
-// app.component.ts
 // Import necessary modules and components
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { WebcamInitError } from 'ngx-webcam';
+import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { getAuth, onAuthStateChanged, User } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import {WebcamImage} from 'ngx-webcam';
+import { finalize } from 'rxjs/operators';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,17 +14,16 @@ import {WebcamImage} from 'ngx-webcam';
 })
 export class AppComponent implements OnInit {
   public webcamImage: WebcamImage = null;
-handleImage(webcamImage: WebcamImage) {
-this.webcamImage = webcamImage;
-}
+  public isWebcamOn: boolean = true;
+
   @ViewChild('video') video: ElementRef<HTMLVideoElement>;
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
-  @ViewChild('snapshotImage') snapshotImage: ElementRef<HTMLImageElement>; // Add this line
+  @ViewChild('snapshotImage') snapshotImage: ElementRef<HTMLImageElement>;
 
   private userId: string;
   public captures: Array<any> = [];
   public isUserAuthenticated: boolean = false;
-  public snapshotDataURL: SafeResourceUrl = ''; // Update to SafeResourceUrl
+  public snapshotDataURL: SafeResourceUrl = '';
 
   private mediaRecorder: MediaRecorder;
   private chunks: Blob[] = [];
@@ -55,33 +54,24 @@ this.webcamImage = webcamImage;
         this.isUserAuthenticated = false;
       }
 
-      this.authStateInitialized = true; // Authentication state is now initialized
+      this.authStateInitialized = true;
     }, (error) => {
       console.error('Error during auth state change:', error);
-      this.authStateInitialized = true; // Authentication state initialization failed
+      this.authStateInitialized = true;
     });
   }
 
+  public handleImage(webcamImage: WebcamImage): void {
+    console.info('received webcam image', webcamImage);
+    this.webcamImage = webcamImage;
+
+    // Upload the snapshot image to Firebase
+    this.uploadToFirebase(webcamImage.imageAsDataUrl);
+  }
+
   public triggerSnapshot(): void {
-    if (!this.mediaRecorder) {
-      console.error('MediaRecorder is not initialized.');
-      return;
-    }
-
-    this.video.nativeElement.pause();
-
-    const context = this.canvas.nativeElement.getContext('2d');
-    context.drawImage(this.video.nativeElement, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-
-    // Set the snapshotDataURL property
-    this.snapshotDataURL = this.sanitizer.bypassSecurityTrustResourceUrl(
-      this.canvas.nativeElement.toDataURL('image/png')
-    );
-
-    // Clear the canvas
-    context.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
-
-    this.video.nativeElement.play();
+    // Triggers the snapshot capture in ngx-webcam
+    this.webcamImage = null; // Clear previous image
   }
 
   public startRecording(): void {
@@ -109,6 +99,16 @@ this.webcamImage = webcamImage;
     this.mediaRecorder.stop();
   }
 
+  public toggleWebcam(): void {
+    this.isWebcamOn = !this.isWebcamOn;
+
+    if (this.isWebcamOn) {
+      this.setupMediaRecorder();
+    } else {
+      this.mediaRecorder = null;
+    }
+  }
+
   private setupMediaRecorder(): void {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       this.mediaRecorder = new MediaRecorder(stream);
@@ -125,28 +125,42 @@ this.webcamImage = webcamImage;
         );
 
         this.video.nativeElement.play();
+        // Upload video to Firebase
+        this.uploadToFirebase(videoBlob);
       };
     }).catch((error: WebcamInitError) => {
       console.error('Error initializing webcam:', error);
     });
   }
 
-  private uploadToFirebase(videoBlob: Blob): void {
+  private uploadToFirebase(dataUrlOrBlob: string | Blob): void {
     if (!this.userId) {
       console.error('User ID is null. Upload aborted.');
       return;
     }
 
-    const filePath = `webcam-videos/${this.userId}/${new Date().getTime()}.webm`;
+    let filePath: string;
+    if (typeof dataUrlOrBlob === 'string') {
+      filePath = `webcam-snapshots/${this.userId}/${new Date().getTime()}.png`;
+    } else {
+      filePath = `webcam-videos/${this.userId}/${new Date().getTime()}.webm`;
+    }
+
     const ref = this.storage.ref(filePath);
 
-    this.storage.upload(filePath, videoBlob).then(() => {
-      ref.getDownloadURL().subscribe((downloadUrl) => {
-        this.database.list(`users/${this.userId}/videos`).push({ downloadUrl });
-      });
-    }).catch((error) => {
-      console.error('Error uploading to Firebase:', error);
-    });
+    const uploadTask = ref.put(dataUrlOrBlob);
+
+    uploadTask.snapshotChanges().pipe(
+      finalize(() => {
+        ref.getDownloadURL().subscribe((downloadUrl) => {
+          if (typeof dataUrlOrBlob === 'string') {
+            this.database.list(`users/${this.userId}/snapshots`).push({ downloadUrl });
+          } else {
+            this.database.list(`users/${this.userId}/videos`).push({ downloadUrl });
+          }
+        });
+      })
+    ).subscribe();
   }
 }
 
