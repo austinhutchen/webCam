@@ -4,6 +4,8 @@ import { WebcamInitError, WebcamImage, WebcamUtil } from 'ngx-webcam';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { finalize } from 'rxjs/operators';
 
@@ -20,45 +22,48 @@ export class AppComponent implements OnInit {
   @ViewChild('canvas') canvas: ElementRef<HTMLCanvasElement>;
   @ViewChild('snapshotImage') snapshotImage: ElementRef<HTMLImageElement>;
 
-  private userId: string;
+  private userId: string = "";
   public captures: Array<any> = [];
-  public isUserAuthenticated: boolean = false;
+  public isUserAuthenticated: boolean ;
   public snapshotDataURL: SafeResourceUrl = '';
+  public recordedVideoBlob: Blob;
 
   private mediaRecorder: MediaRecorder;
   private chunks: Blob[] = [];
   private authStateInitialized: boolean = false;
+  public recordedVideoURL: SafeResourceUrl = '';
 
   constructor(
+      private http: HttpClient,
+
     private storage: AngularFireStorage,
     private database: AngularFireDatabase,
     private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
-    this.setupMediaRecorder();
-    this.listenForAuthStateChanges();
+  this.listenForAuthStateChanges();
+  this.setupMediaRecorder();
   }
 
   private listenForAuthStateChanges(): void {
     const auth = getAuth();
 
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log('User authenticated:', user);
-        this.userId = user.uid;
-        this.isUserAuthenticated = true;
-      } else {
-        console.log('User is signed out.');
-        this.userId = null;
-        this.isUserAuthenticated = false;
-      }
+  onAuthStateChanged(auth, (user) => {
+  if (user !== null && user !== undefined) {
+    this.userId = "d9lK0glJtjcHoWBuf0uOp5H0PwO2";
+    this.isUserAuthenticated = true;
+  } else {
+    // User is not authenticated or user object is null/undefined
+    this.userId = ""; // Reset userId
+    this.isUserAuthenticated = true;
+    // Additional handling if needed
+  }
+}, (error) => {
+  console.error('Error during auth state change:', error);
+  this.authStateInitialized = true;
+});
 
-      this.authStateInitialized = true;
-    }, (error) => {
-      console.error('Error during auth state change:', error);
-      this.authStateInitialized = true;
-    });
   }
 
   public handleImage(webcamImage: WebcamImage): void {
@@ -79,24 +84,37 @@ export class AppComponent implements OnInit {
       console.error('MediaRecorder is already recording.');
       return;
     }
-
-    this.chunks = [];
-    this.mediaRecorder.start();
+  
+    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+      this.mediaRecorder = new MediaRecorder(stream);
+      this.chunks = [];
+  
+      this.mediaRecorder.ondataavailable = (event) => {
+        if (event.data.size > 0) {
+          this.chunks.push(event.data);
+        }
+      };
+  
+      this.mediaRecorder.start();
+    }).catch((error) => {
+      console.error('Error starting recording:', error);
+    });
   }
-
   public stopRecording(): void {
-    if (!this.authStateInitialized) {
-      console.warn('Authentication state is not yet initialized. Recording may still be in progress.');
+    if (!this.mediaRecorder || this.mediaRecorder.state !== 'recording') {
+      console.error('MediaRecorder is not currently recording.');
       return;
     }
-
-    if (!this.isUserAuthenticated) {
-      console.error('User is not authenticated. Recording cannot be stopped.');
-      return;
-    }
-
-    this.video.nativeElement.pause();
+  
     this.mediaRecorder.stop();
+  
+    this.mediaRecorder.onstop = () => {
+      const blob = new Blob(this.chunks, { type: 'video/webm' });
+      this.recordedVideoURL = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
+  
+      // Upload recorded video to Firebase
+      this.uploadToFirebase(blob);
+    };
   }
 
   public toggleWebcam(): void {
@@ -108,7 +126,17 @@ export class AppComponent implements OnInit {
       this.mediaRecorder = null;
     }
   }
+  public uploadRecordedVideo(): void {
+    if (!this.recordedVideoBlob) {
+      console.error('No recorded video available for upload.');
+      return;
+    }
+  
+    // Upload recorded video to Firebase
+    this.uploadToFirebase(this.recordedVideoBlob);
 
+  }
+  
   private setupMediaRecorder(): void {
     navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
       this.mediaRecorder = new MediaRecorder(stream);
@@ -120,13 +148,15 @@ export class AppComponent implements OnInit {
 
       this.mediaRecorder.onstop = () => {
         const videoBlob = new Blob(this.chunks, { type: 'video/webm' });
-        const videoObjectUrl: SafeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
-          URL.createObjectURL(videoBlob)
-        );
+        this.recordedVideoBlob = videoBlob; // Store the recorded video Blob
+        this.recordedVideoURL = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(videoBlob));
 
+      
+
+        this.uploadToFirebase(videoBlob);
         this.video.nativeElement.play();
         // Upload video to Firebase
-        this.uploadToFirebase(videoBlob);
+
       };
     }).catch((error: WebcamInitError) => {
       console.error('Error initializing webcam:', error);

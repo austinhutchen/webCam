@@ -11,6 +11,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { FirebaseService } from './app.service';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -26,7 +27,7 @@ import { AppComponent } from './app.component';
     FormsModule,
     WebcamModule,
         AngularFireAuthModule,
-
+HttpClientModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),

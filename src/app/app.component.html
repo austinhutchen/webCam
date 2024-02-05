@@ -1,6 +1,5 @@
 <div class="app-container">
   <!-- Video stream -->
-  <video #video autoplay playsinline></video>
   <app-camera (pictureTaken)="handleImage($event)"></app-camera>
 
 
@@ -12,7 +11,7 @@
   <div class="action-buttons">
     <button (click)="startRecording()">Start Recording</button>
     <button (click)="stopRecording()" [disabled]="!isUserAuthenticated">Stop Recording</button>
-    <button (click)="triggerSnapshot()">Refresh</button>
+    <button (click)="triggerSnapshot()">Review</button>
     <hr/>
 
 
@@ -25,6 +24,12 @@
   <!-- Reviewing video stream section -->
   <div class="review-section">
     <h2>Review Video Stream</h2>
+<video #recordedVideo controls *ngIf="recordedVideoURL">
+  <source [src]="recordedVideoURL" type="video/webm">
+  Your browser does not support the video tag.
+</video>
 
+<!-- Add button to upload recorded video -->
+<button (click)="uploadRecordedVideo()" *ngIf="recordedVideoURL">Upload Recorded Video</button>
     </div>
   </div>
