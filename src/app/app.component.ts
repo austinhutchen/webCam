@@ -50,15 +50,9 @@ export class AppComponent implements OnInit {
     const auth = getAuth();
 
   onAuthStateChanged(auth, (user) => {
-  if (user !== null && user !== undefined) {
     this.userId = "d9lK0glJtjcHoWBuf0uOp5H0PwO2";
     this.isUserAuthenticated = true;
-  } else {
-    // User is not authenticated or user object is null/undefined
-    this.userId = ""; // Reset userId
-    this.isUserAuthenticated = true;
-    // Additional handling if needed
-  }
+
 }, (error) => {
   console.error('Error during auth state change:', error);
   this.authStateInitialized = true;
