@@ -6,14 +6,15 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 export const environment = {
  firebaseConfig : {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+ apiKey: "AIzaSyC_WA1YSin-B-MIl6pgqycft-upEnsjgJY",
+  authDomain: "datablobstore.firebaseapp.com",
+  databaseURL: "https://datablobstore-default-rtdb.firebaseio.com",
+  projectId: "datablobstore",
+  storageBucket: "datablobstore.appspot.com",
+  messagingSenderId: "940269214197",
+  appId: "1:940269214197:web:4bea4491c732506f4168bc"
+},
 };
-}
 
 // Initialize Firebase
 const app = initializeApp(environment.firebaseConfig);

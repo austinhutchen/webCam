@@ -18,36 +18,7 @@
     display: none; /* Hidden by default */
   }
 
-  .confirmation-options {
-    display: flex;
-    gap: 3vh; /* Adjusted gap using vh units */
-    margin-bottom: 5vh; /* Adjusted margin using vh units */
-
-    button {
-      padding: 3vh 6vh; /* Adjusted padding using vh units */
-      font-size: 1.8vh; /* Adjusted font-size using vh units */
-      cursor: pointer;
-      border: none;
-      border-radius: 12px;
-      transition: background-color 0.3s ease;
-
-      &.confirm {
-        background-color: #28a745; // Green color for Confirm button
-        color: white; // White text color
-      }
-
-      &.redo {
-        background-color: #dc3545; // Red color for Redo button
-        color: white; // White text color
-      }
-
-      &:hover {
-        filter: brightness(1.2);
-      }
-    }
-  }
-
-  .action-buttons { /* Retaining existing styling for other buttons */
+  .action-buttons {
     display: flex;
     gap: 3vh; /* Adjusted gap using vh units */
     margin-bottom: 5vh; /* Adjusted margin using vh units */
@@ -75,6 +46,14 @@
 
       &.snapshot {
         color: blue;
+      }
+
+      &.confirm {
+        color: green; // White text color
+      }
+
+      &.redo {
+        color: red; // White text color
       }
 
       &:hover {
