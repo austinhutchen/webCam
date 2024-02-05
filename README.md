@@ -37,7 +37,7 @@ Press the camera icon for a displayed snapshot of the cam, when video is paused.
 
 
 </li>
-# WebcamApp
+# ADDITIONAL ANGULAR INFO:
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
 
