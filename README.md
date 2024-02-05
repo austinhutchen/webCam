@@ -1,5 +1,6 @@
 # AngularVideoInterface
 # Tutorial:
+![AngularWebcamVideoCapture](https://github.com/austinhutchen/AngularWebcamInterface/assets/93489691/3b60f44b-fbaf-4177-8749-2d8f3acadfe5)
 
 <ul>
 <li>
