@@ -1,6 +1,6 @@
 # AngularVideoInterface
 
-LIVE LINK : [www.firebasecam.hutchencodes](https://angular-cam-firebase-1-ph22dmpba-austinhutchen.vercel.app/)
+# LIVE DEMO : [www.firebasecam.hutchencodes](https://angular-cam-firebase-1-ph22dmpba-austinhutchen.vercel.app/)
 
 
 ![AngularWebcamVideoCapture · 12 52am · 02-05](https://github.com/austinhutchen/angularCamFirebase/assets/93489691/179a7516-99f2-4c81-8223-cf43d6e1d949)
