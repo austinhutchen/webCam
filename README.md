@@ -22,6 +22,7 @@
  <img width="590" alt="Screenshot 2024-02-05 at 12 07 51 AM" src="https://github.com/austinhutchen/angularCamFirebase/assets/93489691/157cf9b8-e0e4-43c7-a955-fe86652642e6">
 
  </li>
+ <li>
 <h3>
    FIREBASE STORED BLOB RESULTS:
 </h3>
@@ -29,7 +30,7 @@
  <img width="1120" alt="Screenshot 2024-02-04 at 11 25 27 PM" src="https://github.com/austinhutchen/AngularWebcamInterface/assets/93489691/8e95265d-7cb2-43e7-9623-da1e23cff244">
 <img width="1161" alt="Screenshot 2024-02-04 at 11 25 12 PM" src="https://github.com/austinhutchen/AngularWebcamInterface/assets/93489691/2b2e852c-2685-415f-8999-9f92e779196a">
 <img width="1441" alt="Screenshot 2024-02-04 at 12 51 13 PM" src="https://github.com/austinhutchen/AngularWebcamInterface/assets/93489691/3c91c689-c0f8-4e0d-9417-9351a4079119">
-
+</li>
 # WebcamApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
