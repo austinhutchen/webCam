@@ -1,3 +1,5 @@
+/* styles.css */
+
 .actionBtn {
   font-size: 4vh;
   cursor: pointer;
@@ -5,34 +7,34 @@
 
 .snapshot {
   text-align: center;
+}
 
-  img {
-    max-width: 80vh;
-    max-height: 80vh;
-    border: 2px solid #3498db;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+.snapshot img {
+  max-width: 80vh;
+  max-height: 80vh;
+  border: 2px solid #3498db;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 ul.links {
   padding-bottom: 2vh;
   list-style: none;
+}
 
-  li {
-    display: inline-block;
-    margin-right: 2vh;
-  }
+ul.links li {
+  display: inline-block;
+  margin-right: 2vh;
+}
 
-  a {
-    text-decoration: none;
-    color: #2ecc71;
-    font-weight: bold;
-    transition: color 0.3s ease;
+ul.links a {
+  text-decoration: none;
+  color: #2ecc71;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
 
-    &:hover {
-      color: #e74c3c;
-    }
-  }
+ul.links a:hover {
+  color: #e74c3c;
 }
 

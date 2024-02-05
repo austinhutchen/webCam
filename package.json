@@ -25,6 +25,7 @@
     "firebase": "^10.8.0",
     "firebase-admin": "^12.0.0",
     "ngx-webcam": "^0.4.1",
+    "node-sass": "^9.0.0",
     "primeicons": "^6.0.1",
     "primeng": "^17.5.0",
     "recordrtc": "^5.6.2",
@@ -35,14 +36,14 @@
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.1.2",
+    "@angular-devkit/build-angular": "^0.1002.1",
     "@angular/cli": "^17.1.2",
     "@angular/compiler-cli": "^17.1.2",
     "@angular/language-service": "^17.1.2",
     "@types/jasmine": "~4.3.1",
     "@types/jasminewd2": "~2.0.10",
     "@types/node": "~18.11.18",
-    "codelyzer": "^0.0.28",
+    "codelyzer": "^6.0.2",
     "jasmine-core": "~4.5.0",
     "jasmine-spec-reporter": "~7.0.0",
     "karma": "^6.4.1",
@@ -51,7 +52,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "^2.0.0",
     "ngx-webcam": "^0.4.1",
-    "protractor": "^7.0.0",
+    "protractor": "^3.3.0",
     "ts-node": "~10.9.1",
     "typescript": "^5.3.3"
   }
