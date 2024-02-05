@@ -3,7 +3,7 @@
 ![AngularWebcamVideoCapture · 12 52am · 02-05](https://github.com/austinhutchen/angularCamFirebase/assets/93489691/179a7516-99f2-4c81-8223-cf43d6e1d949)
 
 # USAGE:
-Press the camera icon for a displayed snapshot of the cam, when video is paused. Use "start recording" to begin live webcam recording.  Press "stop" to save the blob, and "review" to review the playback before it is sent off to firebase servers, with "confirm" -> "upload recorded video".
+Press the camera icon for a displayed snapshot of the cam, when video is paused. Press the arrow icon underneath to switch through available webcam media devices. Use "start recording" to begin live webcam recording.  Press "stop" to save the blob, and "review" to review the playback before it is sent off to firebase servers, with "confirm" -> "upload recorded video".
 # Tutorial:
 
 <ul>
