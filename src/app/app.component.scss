@@ -1,18 +1,15 @@
-/* app.component.scss */
-
 .app-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 5vh; /* Adjusted padding using vh units */
-  background-color: #f4f4f4; /* Light gray background */
-
-  video {
+  background-color: #add8e6;
+    video {
     width: 50vh;
     max-width: 60vh; /* Adjusted max-width using vh units */
     margin-bottom: 5vh; /* Adjusted margin using vh units */
-    border: 1px solid #ddd; /* Light gray border */
-    border-radius: 8px;
+    border: 2px solid #ddd; /* Light gray border */
+    border-radius: 12px;
     background-color: #fff; /* White background */
   }
 
@@ -22,38 +19,37 @@
 
   .action-buttons {
     display: flex;
-    gap: 2vh; /* Adjusted gap using vh units */
+    gap: 3vh; /* Adjusted gap using vh units */
     margin-bottom: 5vh; /* Adjusted margin using vh units */
 
     button {
-      padding: 3vh 5vh; /* Adjusted padding using vh units */
-      font-size: 1.6vh; /* Adjusted font-size using vh units */
+      padding: 3vh 6vh; /* Adjusted padding using vh units */
+      font-size: 1.8vh; /* Adjusted font-size using vh units */
       cursor: pointer;
       border: none;
-
-      border-radius: 8px;
+      border-radius: 12px;
       transition: background-color 0.3s ease;
 
       &.start {
-        color: 'green';
+        color: green;
         font-weight: bold; /* Added bold style */
         font-style: italic; /* Added italic style */
       }
 
       &.stop {
-        color:'red';
+        color: red;
         font-weight: bold; /* Added bold style */
         font-style: italic; /* Added italic style */
       }
 
       &.snapshot {
-        color: 'blue';
+        color: blue;
         font-weight: bold; /* Added bold style */
         font-style: italic; /* Added italic style */
       }
 
       &:hover {
-        filter: brightness(1.8);
+        filter: brightness(1.2);
       }
     }
   }
@@ -62,28 +58,27 @@
     width: 100%;
     max-width: 60vh; /* Adjusted max-width using vh units */
     margin-bottom: 5vh; /* Adjusted margin using vh units */
-    border: 1px solid #ddd; /* Light gray border */
-    border-radius: 8px;
+    border: 2px solid #ddd; /* Light gray border */
+    border-radius: 12px;
     background-color: #fff; /* White background */
   }
 
   .video-gallery {
     display: flex;
     flex-wrap: wrap;
-    gap: 2vh; /* Adjusted gap using vh units */
+    gap: 3vh; /* Adjusted gap using vh units */
 
     .video-item {
       width: 100%;
       max-width: 30vh; /* Adjusted max-width using vh units */
 
       video {
- max-width: 60vh;
         width: 50vh;
-        border: 1px solid #ddd; /* Light gray border */
-        border-radius: 8px;
+        max-width: 60vh; /* Adjusted max-width using vh units */
+        border: 2px solid #ddd; /* Light gray border */
+        border-radius: 12px;
         background-color: #fff; /* White background */
       }
     }
   }
 }
-

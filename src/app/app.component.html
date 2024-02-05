@@ -2,34 +2,34 @@
   <!-- Video stream -->
   <app-camera (pictureTaken)="handleImage($event)"></app-camera>
 
-
   <!-- Canvas for snapshot -->
   <canvas #canvas hidden></canvas>
   <h2>AUTHORIZED?: {{ isUserAuthenticated | json }}</h2>
 
   <!-- Action buttons -->
   <div class="action-buttons">
-    <button (click)="startRecording()">Start Recording</button>
-    <button (click)="stopRecording()" [disabled]="!isUserAuthenticated">Stop Recording</button>
-    <button (click)="triggerSnapshot()">Review</button>
+    <button class="start" (click)="startRecording()">Start Recording</button>
+    <button class="stop" (click)="stopRecording()" [disabled]="!isUserAuthenticated">Stop Recording</button>
+    <button class="snapshot" (click)="triggerSnapshot()">Review</button>
     <hr/>
-
-
   </div>
- <div class="snapshot" *ngIf="webcamImage">
+
+  <!-- Display snapshot image if available -->
+  <div class="snapshot" *ngIf="webcamImage">
     <img [src]="webcamImage.imageAsDataUrl" />
   </div>
+
+  <!-- Display snapshot image -->
   <img [src]="snapshotDataURL" alt="Snapshot" *ngIf="snapshotDataURL" class="snapshot-image">
 
   <!-- Reviewing video stream section -->
   <div class="review-section">
     <h2>Review Video Stream</h2>
-<video #recordedVideo controls *ngIf="recordedVideoURL">
-  <source [src]="recordedVideoURL" type="video/webm">
-  Your browser does not support the video tag.
-</video>
-
-<!-- Add button to upload recorded video -->
-<button (click)="uploadRecordedVideo()" *ngIf="recordedVideoURL">Upload Recorded Video</button>
-    </div>
+    <video #recordedVideo controls *ngIf="recordedVideoURL">
+      <source [src]="recordedVideoURL" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+    <!-- Add button to upload recorded video -->
+    <button (click)="uploadRecordedVideo()" *ngIf="recordedVideoURL">Upload Recorded Video</button>
   </div>
+</div>
