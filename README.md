@@ -1,6 +1,6 @@
 # AngularVideoInterface
-![AngularWebcamVideoCapture]
-<img width="723" alt="Screenshot 2024-02-04 at 11 50 54 PM" src="https://github.com/austinhutchen/angularCamFirebase/assets/93489691/c9240f92-5e7f-47a4-8c1c-057a6c703577">
+(https://github.com/austinhutchen/angularCamFirebase/assets/93489691/a0e7c5b7-f076-4e80-a8db-d36ca692d440)
+
 
 # Tutorial:
 
