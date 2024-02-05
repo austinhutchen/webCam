@@ -9,7 +9,7 @@
 </li>
 <h2>
 
-  Input your firebase credentials into /environments/environment.ts, and then run <code> firebase init </code>. Then, run <code> firebase deploy </code>, followed by <code> ng serve --ssl </code>. the --ssl flag is needed for webcam capture compatbility across all browsers.
+  Input your firebase credentials into /environments/environment.ts, and then run <code>firebase init </code>. Then, run <code>firebase deploy </code>, followed by <code>ng serve --ssl </code>. the --ssl flag is needed for webcam capture compatbility across all browsers.
 
 
 </h2>
