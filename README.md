@@ -4,7 +4,7 @@
 <ul>
 <li>
   <b>
-<h1>Set up your development environment</h1> by installing required libraries and frameworks for my webcam application. This includes firebase storage, as we are using the FEAN stack, node and express for server concurrency and spinup, and Angular.js for the app components. You can do this by running npm install in project root.
+<h1>Set up your development environment</h1> Install required libraries and frameworks for my webcam application. This includes firebase storage, as we are using the FEAN stack, node and express for server concurrency and spinup, and Angular.js for the app components. You can do this by running <code> npm install</code> in project root.
   </b>
 </li>
 <h2>
