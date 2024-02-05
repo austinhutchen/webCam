@@ -24,7 +24,6 @@
  <img width="1120" alt="Screenshot 2024-02-04 at 11 25 27 PM" src="https://github.com/austinhutchen/AngularWebcamInterface/assets/93489691/8e95265d-7cb2-43e7-9623-da1e23cff244">
 <img width="1161" alt="Screenshot 2024-02-04 at 11 25 12 PM" src="https://github.com/austinhutchen/AngularWebcamInterface/assets/93489691/2b2e852c-2685-415f-8999-9f92e779196a">
 <img width="1441" alt="Screenshot 2024-02-04 at 12 51 13 PM" src="https://github.com/austinhutchen/AngularWebcamInterface/assets/93489691/3c91c689-c0f8-4e0d-9417-9351a4079119">
-<img width="1142" alt="Screenshot 2024-02-04 at 11 30 20 PM" src="https://github.com/austinhutchen/AngularWebcamInterface/assets/93489691/f839235a-1284-45a0-b64a-d8f24216297b">
 
 # WebcamApp
 
