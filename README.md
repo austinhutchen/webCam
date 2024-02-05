@@ -1,5 +1,6 @@
 # AngularVideoInterface
-(https://github.com/austinhutchen/angularCamFirebase/assets/93489691/a0e7c5b7-f076-4e80-a8db-d36ca692d440)
+![AngularWebcamVideoCapture](https://github.com/austinhutchen/angularCamFirebase/assets/93489691/d7843a41-e840-42f2-b48e-945aab6e6dcc)
+
 
 
 # Tutorial:
