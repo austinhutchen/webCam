@@ -7,6 +7,7 @@
 <h1>Set up your development environment</h1> Install required libraries and frameworks for my webcam application. This includes firebase storage, as we are using the FEAN stack, node and express for server concurrency and spinup, and Angular.js for the app components. You can do this by running <code> npm install</code> in project root.
   </b>
 </li>
+  <li>
 <h2>
 
   Input your firebase credentials into /environments/environment.ts, and then run <code>firebase init </code>. Then, run <code>firebase deploy </code>, followed by <code>ng serve --ssl </code>. the --ssl flag is needed for webcam capture compatbility across all browsers.
@@ -16,6 +17,7 @@
  <h3>
     Also be sure to add a user under your firebase realtime database settings, and then add your displayed user id into request object (found in app.component.ts, within the "istenForAuthStateChanges" method) upon successful video capture.
  </h3>
+ </li>
 # WebcamApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
