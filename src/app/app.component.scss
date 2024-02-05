@@ -4,7 +4,8 @@
   align-items: center;
   padding: 5vh; /* Adjusted padding using vh units */
   background-color: #add8e6;
-    video {
+
+  video {
     width: 50vh;
     max-width: 60vh; /* Adjusted max-width using vh units */
     margin-bottom: 5vh; /* Adjusted margin using vh units */
@@ -30,22 +31,21 @@
       border-radius: 12px;
       transition: background-color 0.3s ease;
 
-      &.start {
-        color: green;
+      &.start, &.stop, &.snapshot {
         font-weight: bold; /* Added bold style */
         font-style: italic; /* Added italic style */
+      }
+
+      &.start {
+        color: green;
       }
 
       &.stop {
         color: red;
-        font-weight: bold; /* Added bold style */
-        font-style: italic; /* Added italic style */
       }
 
       &.snapshot {
         color: blue;
-        font-weight: bold; /* Added bold style */
-        font-style: italic; /* Added italic style */
       }
 
       &:hover {
