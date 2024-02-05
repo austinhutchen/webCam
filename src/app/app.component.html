@@ -29,11 +29,12 @@
       <source [src]="recordedVideoURL" type="video/webm">
       Your browser does not support the video tag.
     </video>
-    <!-- Add button to upload recorded video -->
-    <button (click)="uploadRecordedVideo()" *ngIf="recordedVideoURL">Upload Recorded Video</button>
+
 
     <!-- Options for confirming or redoing recording -->
     <div class="confirmation-options" *ngIf="recordedVideoURL">
+
+    <button class ="upload" (click)="uploadRecordedVideo()" *ngIf="recordedVideoURL">Upload Recorded Video</button>
       <button class="confirm" (click)="confirmRecording()">Confirm Recording</button>
       <button class="redo" (click)="redoRecording()">Redo Recording</button>
     </div>
