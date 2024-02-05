@@ -53,21 +53,6 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
 ## Further help
-5. Testing and Documentation:
-   - Conduct comprehensive testing to ensure functionality across different devices and browsers.
-   - Document the feature's implementation process, including setup instructions and any dependencies.
-
-Deliverables
-
-- A fully functional video recording feature integrated into the existing Angular application.
-- Source code for all implemented features, including frontend and backend modifications.
-- A README.md file with detailed instructions on setting up the feature, including any necessary configuration steps for Firebase Storage and the Realtime Database.
-
-Additional Notes
-
-- Optimize the video for web playback without significantly compromising quality.
-- The user interface should be intuitive, guiding the user through each step of the process.
-
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 =======
