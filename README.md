@@ -15,7 +15,7 @@
 
 </h2>
  <h3>
-    Also be sure to add a user under your firebase realtime database settings, and then add your displayed user id into request object (found in app.component.ts, within the "istenForAuthStateChanges" method) upon successful video capture.
+    Also be sure to add a user under your firebase realtime database settings, and then add your displayed user id into our request object (found in app.component.ts, within the "istenForAuthStateChanges" method, as this.userId) upon successful video capture.
  </h3>
  </li>
 # WebcamApp
