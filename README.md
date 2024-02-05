@@ -12,7 +12,7 @@
   <li>
 <h2>
 
-  Input your "Usage" tab firebase credentials using text editor of choice into a NEW FILE in /environments using <code> touch /environments/environment.ts </code>, and then run <code>firebase init </code>. Choose realtime database and storage options, and ensure you have a google storage bucket set on your project through your cloud console.Then, run <code>firebase deploy </code>, followed by <code>ng serve --ssl </code>. the --ssl flag is needed for webcam capture compatbility across all browsers.
+ Search for the "usage" tab of your project's location found using firebase console, and then input the credentials there using text editor of choice into a NEW FILE in /environments using <code> touch /environments/environment.ts </code>, and then run <code>firebase init </code>. Choose realtime database and storage options, and ensure you have a google storage bucket set on your project through your cloud console.Then, run <code>firebase deploy </code>, followed by <code>ng serve --ssl </code>. the --ssl flag is needed for webcam capture compatbility across all browsers.
 
 
 </h2>
