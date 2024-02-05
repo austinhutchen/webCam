@@ -17,7 +17,7 @@
 
 </h2>
  <h3>
-  <b>  Also be sure to add a user under your firebase realtime database settings, and then add your displayed string user id into your request object (found in app.component.ts, within the "listenForAuthStateChanges" method, under this.userId) upon successful video capture. </b>
+  <b>  Also be sure to add a user under your firebase realtime database settings, and then add your displayed string user id into your request object (found in app.component.ts, within the "listenForAuthStateChanges" method, under this.userId) upon successful video capture. (THE REQUEST TO UPLOAD WILL OTHERWISE NOT WORK)</b>
  </h3>
  <img width="590" alt="Screenshot 2024-02-05 at 12 07 51 AM" src="https://github.com/austinhutchen/angularCamFirebase/assets/93489691/157cf9b8-e0e4-43c7-a955-fe86652642e6">
 
