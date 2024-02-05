@@ -9,7 +9,7 @@
   <!-- Action buttons -->
   <div class="action-buttons">
     <button class="start" (click)="startRecording()">Start Recording</button>
-    <button class="stop" (click)="stopRecording()" [disabled]="isUserAuthenticated">Stop Recording</button>
+    <button class="stop" (click)="stopRecording()" [disabled]="!isUserAuthenticated">Stop Recording</button>
     <button class="snapshot" (click)="triggerSnapshot()">Review</button>
     <hr/>
   </div>
@@ -34,9 +34,10 @@
 
     <!-- Options for confirming or redoing recording -->
     <div class="confirmation-options" *ngIf="recordedVideoURL">
-      <button (click)="confirmRecording()">Confirm Recording</button>
-      <button (click)="redoRecording()">Redo Recording</button>
+      <button class="confirm" (click)="confirmRecording()">Confirm Recording</button>
+      <button class="redo" (click)="redoRecording()">Redo Recording</button>
     </div>
+    
   </div>
 </div>
 
