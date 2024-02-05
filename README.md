@@ -10,7 +10,7 @@
 <h2>
 
   Run <code>npm install </code>, and input your firebase credentials into /environments/environment.ts.
- Also be sure to add a user under your firebase realtime database settings, and then add user id into request object upon successful video capture.
+ Also be sure to add a user under your firebase realtime database settings, and then add your displayed user id into request object (found in app.component.ts, within the "istenForAuthStateChanges" method) upon successful video capture.
 
 </h2>
  
