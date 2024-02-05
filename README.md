@@ -29,7 +29,8 @@ Press the camera icon for a displayed snapshot of the cam, when video is paused.
 <h3>
    FIREBASE STORED BLOB RESULTS:
 </h3>
-<img width="1120" alt="Screenshot 2024-02-04 at 11 25 27 PM" src="https://github.com/austinhutchen/angularCamFirebase/assets/93489691/725fc9e9-0044-4bd3-809c-171dfa077992">
+ <img width="1169" alt="Screenshot 2024-02-05 at 1 01 49 AM" src="https://github.com/austinhutchen/angularCamFirebase/assets/93489691/e2801b32-2a79-49bb-9ae1-faf64290b7ec">
+  
 <img width="1161" alt="Screenshot 2024-02-04 at 11 25 12 PM" src="https://github.com/austinhutchen/angularCamFirebase/assets/93489691/d6f38137-1f21-4f28-80fc-50fd3e8443b1">
 <img width="1441" alt="Screenshot 2024-02-04 at 12 51 13 PM" src="https://github.com/austinhutchen/angularCamFirebase/assets/93489691/8e697de3-f632-4ed4-ba46-96d632bf50ea">
 
