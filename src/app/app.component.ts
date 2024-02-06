@@ -97,6 +97,7 @@ export class AppComponent implements OnInit {
       this.recordedVideoBlob = blob;
       this.recordedVideoURL = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
     };
+    this.triggerSnapshot();
   }
 
   public toggleWebcam(): void {
