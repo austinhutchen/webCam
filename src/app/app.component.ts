@@ -96,7 +96,6 @@ export class AppComponent implements OnInit {
       const blob = new Blob(this.chunks, { type: 'video/webm' });
       this.recordedVideoBlob = blob;
       this.recordedVideoURL = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(blob));
-      this.uploadToFirebase(blob);
     };
   }
 
@@ -109,24 +108,18 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public uploadRecordedVideo(): void {
-    if (!this.recordedVideoBlob) {
-      console.error('No recorded video available for upload.');
-      return;
-    }
-
-    this.uploadToFirebase(this.recordedVideoBlob);
-  }
+ 
 
   public confirmRecording(): void {
     if (!this.recordedVideoBlob) {
       console.error('No recorded video available to confirm.');
       return;
     }
-
     console.log('Recording confirmed');
+    this.uploadToFirebase(this.recordedVideoBlob);
     this.recordedVideoBlob = null;
     this.recordedVideoURL = null;
+
   }
 
   public redoRecording(): void {
