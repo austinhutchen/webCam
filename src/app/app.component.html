@@ -35,7 +35,7 @@
     <!-- Options for confirming or redoing recording -->
     <div class="confirmation-options" *ngIf="recordedVideoURL">
 
-    <button class ="upload" (click)="uploadRecordedVideo()" *ngIf="recordedVideoURL">Upload Recorded Video</button>
+    <button class ="upload" (click)="confirmRecording()" *ngIf="recordedVideoURL">Upload Recorded Video</button>
       <button class="redo" (click)="redoRecording()">Redo Recording</button>
     </div>
     
