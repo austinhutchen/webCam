@@ -1,5 +1,5 @@
 <!-- component.html -->
-<div style="text-align: center">
+<div >
   <div class="snapshot">
     <webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
       [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions"
