@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     const auth = getAuth();
 
     onAuthStateChanged(auth, (user) => {
-        this.userId = "YOUR_FIREBASE_UID_HERE";
+        this.userId = "FIREBASE_USER_ID";
         this.isUserAuthenticated = true;
       this.authStateInitialized = true;
     }, (error) => {
