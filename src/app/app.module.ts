@@ -9,7 +9,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { FirebaseService } from './app.service';
-import { environment } from '../environments/environment';
+import { firebaseConfig } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -30,7 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
 HttpClientModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(firebaseConfig),
   ],
   providers: [FirebaseService],
   bootstrap: [AppComponent]
