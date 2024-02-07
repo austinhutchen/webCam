@@ -41,3 +41,5 @@ Thumbs.db
 
 #environ
 /src/environments
+.vercel
+.env*.local
