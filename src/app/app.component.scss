@@ -1,0 +1,151 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5svh;
+  /* Adjusted padding using vh units */
+  background-color: #9B59B6;
+
+  video {
+    width: 50svh;
+    max-width: 60svh;
+    /* Adjusted max-width using vh units */
+    margin-bottom: 5svh;
+    /* Adjusted margin using vh units */
+    border: 2px solid #ddd;
+    /* Light gray border */
+    border-radius: 12px;
+    background-color: #fff;
+    /* White background */
+  }
+
+  canvas {
+    display: none;
+    /* Hidden by default */
+  }
+
+  .confirmation-options {
+    display: flex;
+    gap: 3svh;
+    /* Adjusted gap using vh units */
+    margin-bottom: 5svh;
+    button {
+      padding: 3svh 6svh;
+      /* Adjusted padding using vh units */
+      font-size: 1.8svh;
+      /* Adjusted font-size using vh units */
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      transition: background-color 0.3s ease;
+
+      &.confirm,
+      &.upload,
+      &.redo {
+        font-weight: bold;
+        /* Added bold style */
+        font-style: italic;
+        /* Added italic style */
+      }
+
+      &.confirm {
+        color: green; // White text color
+      }
+  
+      &.upload {
+        color: teal; // White text color
+      }
+  
+  
+      &.redo {
+        color: red; // White text color
+      }
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+    }
+   
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 3svh;
+    /* Adjusted gap using vh units */
+    margin-bottom: 5svh;
+    /* Adjusted margin using vh units */
+
+    button {
+      padding: 3svh 6svh;
+      /* Adjusted padding using vh units */
+      font-size: 1.8svh;
+      /* Adjusted font-size using vh units */
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      transition: background-color 0.3s ease;
+
+      &.start,
+      &.stop,
+      &.snapshot {
+        font-weight: bold;
+        /* Added bold style */
+        font-style: italic;
+        /* Added italic style */
+      }
+
+      &.start {
+        color: green;
+      }
+
+      &.stop {
+        color: red;
+      }
+
+      &.snapshot {
+        color: blue;
+      }
+
+      &:hover {
+        filter: brightness(1.2);
+      }
+    }
+  }
+
+  .snapshot-image {
+    width: 100%;
+    max-width: 60svh;
+    /* Adjusted max-width using vh units */
+    margin-bottom: 5svh;
+    /* Adjusted margin using vh units */
+    border: 2px solid #ddd;
+    /* Light gray border */
+    border-radius: 12px;
+    background-color: #fff;
+    /* White background */
+  }
+
+  .video-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3svh;
+    /* Adjusted gap using vh units */
+
+    .video-item {
+      width: 100%;
+      max-width: 30svh;
+      /* Adjusted max-width using vh units */
+
+      video {
+        width: 50svh;
+        max-width: 60svh;
+        /* Adjusted max-width using vh units */
+        border: 2px solid #ddd;
+        /* Light gray border */
+        border-radius: 12px;
+        background-color: #fff;
+        /* White background */
+      }
+    }
+  }
+}

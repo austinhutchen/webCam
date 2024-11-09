@@ -1,0 +1,41 @@
+[debug] [2024-02-05T05:00:56.826Z] ----------------------------------------------------------------------
+[debug] [2024-02-05T05:00:56.827Z] Command:       /opt/homebrew/Cellar/node/21.3.0/bin/node /opt/homebrew/bin/firebase deploy
+[debug] [2024-02-05T05:00:56.827Z] CLI Version:   13.1.0
+[debug] [2024-02-05T05:00:56.827Z] Platform:      darwin
+[debug] [2024-02-05T05:00:56.827Z] Node Version:  v21.3.0
+[debug] [2024-02-05T05:00:56.828Z] Time:          Sun Feb 04 2024 22:00:56 GMT-0700 (Mountain Standard Time)
+[debug] [2024-02-05T05:00:56.828Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-02-05T05:00:56.829Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-02-05T05:00:56.885Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-02-05T05:00:56.885Z] > authorizing via signed-in user (hutchencodes@gmail.com)
+[debug] [2024-02-05T05:00:56.885Z] [iam] checking project angularcam for permissions ["firebase.projects.get","firebasedatabase.instances.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2024-02-05T05:00:56.885Z] > refreshing access token with scopes: []
+[debug] [2024-02-05T05:00:56.886Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-02-05T05:00:56.886Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-02-05T05:00:57.048Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-02-05T05:00:57.048Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2024-02-05T05:00:57.147Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-02-05T05:00:57.147Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-02-05T05:00:57.167Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/angularcam:testIamPermissions [none]
+[debug] [2024-02-05T05:00:57.167Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/angularcam:testIamPermissions x-goog-quota-user=projects/angularcam
+[debug] [2024-02-05T05:00:57.167Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/angularcam:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2024-02-05T05:00:57.401Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/angularcam:testIamPermissions 200
+[debug] [2024-02-05T05:00:57.402Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/angularcam:testIamPermissions {"permissions":["firebase.projects.get","firebasedatabase.instances.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2024-02-05T05:00:57.403Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/angularcam [none]
+[debug] [2024-02-05T05:00:57.774Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/angularcam 200
+[debug] [2024-02-05T05:00:57.774Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/angularcam {"projectId":"angularcam","projectNumber":"683800012934","displayName":"DataBlobStore","name":"projects/angularcam","resources":{"hostingSite":"angularcam","realtimeDatabaseInstance":"angularcam-default-rtdb","storageBucket":"angularcam.appspot.com","locationId":"us-west2"},"state":"ACTIVE","etag":"1_92a66bb9-7016-42d5-a6df-99e47dba5a94"}
+[info] 
+[info] === Deploying to 'angularcam'...
+[info] 
+[info] i  deploying database, storage 
+[info] i  database: checking rules syntax... 
+[debug] [2024-02-05T05:00:57.779Z] >>> [apiv2][query] GET https://firebasedatabase.googleapis.com/v1beta/projects/angularcam/locations/-/instances/angularcam-default-rtdb [none]
+[debug] [2024-02-05T05:00:58.067Z] <<< [apiv2][status] GET https://firebasedatabase.googleapis.com/v1beta/projects/angularcam/locations/-/instances/angularcam-default-rtdb 200
+[debug] [2024-02-05T05:00:58.067Z] <<< [apiv2][body] GET https://firebasedatabase.googleapis.com/v1beta/projects/angularcam/locations/-/instances/angularcam-default-rtdb {"name":"projects/683800012934/locations/us-central1/instances/angularcam-default-rtdb","project":"projects/683800012934","databaseUrl":"https://angularcam-default-rtdb.firebaseio.com","type":"DEFAULT_DATABASE","state":"ACTIVE"}
+[debug] [2024-02-05T05:00:58.070Z] >>> [apiv2][query] PUT https://angularcam-default-rtdb.firebaseio.com/.settings/rules.json dryRun=true
+[debug] [2024-02-05T05:00:58.070Z] >>> [apiv2][body] PUT https://angularcam-default-rtdb.firebaseio.com/.settings/rules.json "{\n  /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */\n  \"rules\": {\n    \".read\": false,\n    \".write\": false\n  }\n}"
+[debug] [2024-02-05T05:00:58.257Z] <<< [apiv2][status] PUT https://angularcam-default-rtdb.firebaseio.com/.settings/rules.json 401
+[debug] [2024-02-05T05:00:58.257Z] <<< [apiv2][body] PUT https://angularcam-default-rtdb.firebaseio.com/.settings/rules.json {"error":"Unauthorized request."}
+[error] 
+[error] Error: Unexpected error while deploying database rules.

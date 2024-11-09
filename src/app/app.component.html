@@ -1,0 +1,44 @@
+<div class="app-container">
+  <!-- Video stream -->
+  <app-camera (pictureTaken)="handleImage($event)"></app-camera>
+
+  <!-- Canvas for snapshot -->
+  <canvas #canvas hidden></canvas>
+  <h1 style="color:pink"> <b> AUTHORIZED?: {{ isUserAuthenticated | json }} </b> </h1>
+
+
+  <!-- Action buttons -->
+  <div class="action-buttons">
+    <button class="start" (click)="startRecording()">Start Recording</button>
+    <button class="stop" (click)="stopRecording()" [disabled]="!isUserAuthenticated">Stop Recording</button>
+    <button class="snapshot" (click)="triggerSnapshot()">Review</button>
+    <hr/>
+  </div>
+
+  <!-- Display snapshot image if available -->
+  <div class="snapshot" *ngIf="webcamImage">
+    <img [src]="webcamImage.imageAsDataUrl" />
+  </div>
+
+  <!-- Display snapshot image -->
+  <img [src]="snapshotDataURL" alt="Snapshot" *ngIf="snapshotDataURL" class="snapshot-image">
+
+  <!-- Reviewing video stream section -->
+  <div class="review-section">
+    <h2>Review Video Stream</h2>
+    <video #recordedVideo controls *ngIf="recordedVideoURL">
+      <source [src]="recordedVideoURL" type="video/webm">
+      Your browser does not support the video tag.
+    </video>
+
+
+    <!-- Options for confirming or redoing recording -->
+    <div class="confirmation-options" *ngIf="recordedVideoURL">
+
+    <button class ="upload" (click)="confirmRecording()" *ngIf="recordedVideoURL">Upload Recorded Video</button>
+      <button class="redo" (click)="redoRecording()">Redo Recording</button>
+    </div>
+    
+  </div>
+</div>
+
